@@ -1,0 +1,66 @@
+
+import ExUnit.Assertions
+
+alias MusicDB.{Repo, Artist, Album, Track, Genre}
+
+result =
+Repo.insert_all("artists", [[name: "John Coltrane"]])
+
+assert {1, nil} = result
+
+if Repo.using_postgres?() do
+  result =
+  Repo.insert_all("artists", [[name: "John Coltrane"]], returning: [:id])
+
+  assert {1, [%{id: _id}]} = result
+end
+
+
+result =
+Repo.insert(%Artist{name: "John Coltrane"})
+
+assert {:ok, %Artist{}} = result
+
+{:ok, artist} = Repo.insert(%Artist{name: "John Coltrane"})
+
+
+result =
+Repo.insert(
+  %Artist{
+    name: "John Coltrane",
+    albums: [
+      %Album{
+        title: "A Love Supreme"
+      }
+    ]
+  }
+)
+
+assert {:ok, %Artist{albums: [%Album{}]}} = result
+
+result =
+Repo.insert(
+  %Artist{
+    name: "John Coltrane",
+    albums: [
+      %Album{
+        title: "A Love Supreme",
+        tracks: [
+          %Track{title: "Part 1: Acknowledgement", index: 1},
+          %Track{title: "Part 2: Resolution", index: 2},
+          %Track{title: "Part 3: Pursuance", index: 3},
+          %Track{title: "Part 4: Psalm", index: 4},
+        ],
+        genres: [
+          %Genre{name: "spiritual jazz"},
+        ]
+      }
+    ]
+  }
+)
+
+assert {:ok, %Artist{
+  albums: [%Album{
+    tracks: [%Track{}, %Track{}, %Track{}, %Track{}],
+    genres: [%Genre{}]
+  }]}} = result
