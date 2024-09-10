@@ -1,6 +1,6 @@
-#import ExUnit.Assertions
+import ExUnit.Assertions
 import Ecto.Changeset
-#import Ecto.Query
+import Ecto.Query
 defmodule MusicDB.AlbumGenre do
   use Ecto.Schema
   alias MusicDB.{Album, Genre}

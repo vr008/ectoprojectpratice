@@ -1,4 +1,4 @@
-#import ExUnit.Assertions
+import ExUnit.Assertions
 import Ecto.Changeset
 #import Ecto.Query
 defmodule MusicDB.AlbumGenre do

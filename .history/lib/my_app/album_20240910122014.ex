@@ -1,6 +1,7 @@
 alias MusicDB.Track
 import Ecto.Changeset
-alias MusicDB.{Artist, Album, Genre,Track,SoldUnits}
+import Ecto.Query
+alias MusicDB.{Repo, Artist, Album, Genre,Track,SoldUnits}
 defmodule MusicDB.Album do
   use Ecto.Schema
   schema "albums" do

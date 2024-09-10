@@ -2,7 +2,7 @@
 defmodule MusicDB.Rating do
   use Ecto.Schema
   import Ecto.Changeset
-  alias MusicDB.Artist
+  alias MusicDB
 
   schema "ratings" do
 
