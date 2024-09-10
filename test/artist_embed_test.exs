@@ -1,6 +1,6 @@
 defmodule Artist_Embed_Test do
   use ExUnit.Case, async: true
-  import Ecto.Changeset
+  #import Ecto.Changeset
   use Ecto.Schema
   alias MusicDB.ArtistEmbed
   describe "changeset/2" do

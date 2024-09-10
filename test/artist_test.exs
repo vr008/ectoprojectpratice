@@ -1,8 +1,8 @@
 
 defmodule MusicDB.Artist_Test do
   use ExUnit.Case, async: true
-  alias MusicDB.{Artist, Repo,SoloArtist,Genre}
-  alias Ecto.Changeset
+  alias MusicDB.{Artist,SoloArtist,Band}
+  #alias Ecto.Changeset
 
   describe "changeset/2" do
     test "requires title birth_date death_date" do
@@ -45,9 +45,24 @@ defmodule MusicDB.Artist_Test do
         assert changeset.data.birth_date == ~D[1990-01-01]
         assert changeset.data.death_date == ~D[2020-12-31]
       end
+      test "changeset/1 correctly transforms band to artist changeset" do
+        band = %Band{
+          name: "Test Band",
+          year_started: 1990,
+          year_ended: 2000
+        }
 
-     
+        changeset = Artist.changeset(band)
+
+        assert changeset.valid?
+         changeset.changes[:name]
+        changeset.changes[:birth_date]
+        changeset.changes[:death_date]
+      end
+
+
 
   end
+
 
 end
