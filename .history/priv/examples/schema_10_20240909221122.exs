@@ -1,0 +1,37 @@
+
+import ExUnit.Assertions
+
+import Ecto.Query
+alias MusicDB.{Repo, Album, Artist, Track}
+
+album = Repo.get_by(Album, title: "Kind Of Blue")
+
+IO.inspect(Repo.all(album))
+
+album.tracks
+
+IO.inspect(Repo.all(album))
+
+
+albums = Repo.all(from a in Album, preload: :tracks)
+
+assert %Track{} = hd(hd(albums).tracks)
+
+albums =
+  Album
+  |> Repo.all
+  |> Repo.preload(:tracks)
+
+assert %Track{} = List.first(List.first(albums).tracks)
+
+result =
+Repo.all(from a in Artist, preload: [albums: :tracks])
+
+assert %Track{} = hd(hd(hd(result).albums).tracks)
+
+q = from a in Album,
+  join: t in assoc(a, :tracks),
+  where: t.title == "Freddie Freeloader",
+  preload: [tracks: t]
+
+assert %Ecto.Query{} = q

@@ -1,0 +1,16 @@
+
+defmodule MusicDB.AlbumGenre do
+  use Ecto.Schema
+  alias MusicDB.{Album, Genre}
+
+  schema "albums_genres" do
+    belongs_to(:albums, Album)
+    belongs_to(:genres, Genre)
+  end
+  def changeset(album) do
+    album
+
+    |> validate_required([:albums,:genres])
+
+  end
+end
