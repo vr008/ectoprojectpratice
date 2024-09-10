@@ -1,0 +1,59 @@
+
+import ExUnit.Assertions
+
+import Ecto.Query
+alias Ecto.Query
+alias MusicDB.Repo
+
+albums_by_miles = from a in "albums",
+  join: ar in "artists", on: a.artist_id == ar.id,
+  where: ar.name == "Miles Davis"
+
+IO.inspect(albums_by_miles)
+
+q = from [a,ar] in albums_by_miles,
+  where: ar.name == "Bobby Hutcherson",
+  select: a.title
+
+Repo.to_sql(:all, q)
+
+assert {_sql, []} = Repo.to_sql(:all, q)
+
+q = from a in "albums",
+  join: ar in "artists", on: a.artist_id == ar.id,
+  where: ar.name == "Miles Davis" or ar.name == "Bobby Hutcherson",
+  select: %{artist: ar.name, album: a.title}
+
+IO.inspect(q)
+
+q = from [a,ar] in albums_by_miles, or_where: ar.name == "Bobby Hutcherson",
+  select: %{artist: ar.name, album: a.title}
+
+  IO.inspect(q)
+
+q = from [a,ar] in albums_by_miles, or_where: ar.name == "Bobby Hutcherson",
+  select: %{artist: ar.name, album: a.title}
+Repo.all(q)
+
+result =
+  Repo.update_all("artists", set: [updated_at: DateTime.utc_now])
+
+  IO.inspect(result)
+
+  q = from t in "tracks", where: t.title == "Autum Leaves"
+  Repo.update_all(q, set: [title: "Autumn Leaves"])
+
+  IO.inspect(result)
+
+  result =
+  from(t in "tracks", where: t.title == "Autum Leaves")
+  |> Repo.update_all(set: [title: "Autumn Leaves"])
+
+  IO.inspect(result)
+
+  result =
+  from(t in "tracks", where: t.title == "Autum Leaves")
+  |> Repo.delete_all
+
+  IO.inspect(result)
+
