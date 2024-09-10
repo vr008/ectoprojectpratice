@@ -1,3 +1,0 @@
-defmodule AlbumGenreTes do
-  
-end

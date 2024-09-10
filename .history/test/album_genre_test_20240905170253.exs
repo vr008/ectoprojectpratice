@@ -1,3 +1,0 @@
-defmodule AlbumGenreTest do
-  
-end
