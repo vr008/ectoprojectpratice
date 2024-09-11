@@ -225,5 +225,6 @@ Repo.insert! %Artist{
 }
 end)
 
-IO.puts "Data added sucessfully"
+IO.puts ""
+IO.puts "Success! Sample data has been added."
 end

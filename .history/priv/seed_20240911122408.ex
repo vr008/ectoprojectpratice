@@ -1,9 +1,5 @@
 alias MusicDB.{Repo}
 alias MusicDB.{Artist, Album, Track, Genre, AlbumWithEmbeds, ArtistEmbed, TrackEmbed, SoldUnits, Rating, ArtistFeedback, TrackFeedback}
-defmodule Seed do
-use ExUnit.Case, async: false
-
-Repo.checkout(fn ->
 
 blues_genre = Repo.insert!(%Genre{ name: "blues", wiki_tag: "Blues" })
 fusion_genre = Repo.insert!(%Genre{ name: "fusion", wiki_tag: "JazzFusion" })
@@ -223,7 +219,6 @@ Repo.insert! %Artist{
     detailedfeedback: "Chick Corea’s innovation in jazz fusion continues to inspire musicians worldwide."
   }]
 }
-end)
 
-IO.puts "Data added sucessfully"
-end
+IO.puts ""
+IO.puts "Success! Sample data has been added."

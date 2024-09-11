@@ -1,7 +1,5 @@
 alias MusicDB.{Repo}
 alias MusicDB.{Artist, Album, Track, Genre, AlbumWithEmbeds, ArtistEmbed, TrackEmbed, SoldUnits, Rating, ArtistFeedback, TrackFeedback}
-defmodule Seed do
-use ExUnit.Case, async: false
 
 Repo.checkout(fn ->
 
@@ -225,5 +223,5 @@ Repo.insert! %Artist{
 }
 end)
 
-IO.puts "Data added sucessfully"
-end
+IO.puts ""
+IO.puts "Success! Sample data has been added."

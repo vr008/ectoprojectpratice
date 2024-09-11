@@ -225,5 +225,6 @@ Repo.insert! %Artist{
 }
 end)
 
-IO.puts "Data added sucessfully"
+IO.puts ""
+IO.puts "Dta."
 end

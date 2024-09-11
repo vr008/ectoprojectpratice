@@ -2,7 +2,8 @@
 defmodule MusicDB.Artist do
   use Ecto.Schema
   import Ecto.Changeset
-  alias MusicDB.{Artist, Album,ArtistFeedback,Rating}
+  alias MusicDB.{Artist, Album,ArtistFeedback}
+  alias MusicDB.{R}
 
   schema "artists" do
     field(:name)
@@ -13,8 +14,6 @@ defmodule MusicDB.Artist do
     has_many(:albums, Album, on_replace: :nilify)
     has_many(:tracks, through: [:albums, :tracks])
     has_many(:ratings,Rating,on_replace: :nilify)
-    has_many(:artistfeedback,ArtistFeedback,on_replace: :nilify)
-
     #has_many :notes, MusicDB.Note
     #has_many :notes, {"notes_for_artists", MusicDB.Note},foreign_key: :assoc_id
     many_to_many :notes, MusicDB.Note, join_through: "artists_notes"
